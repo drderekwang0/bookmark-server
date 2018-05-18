@@ -13,6 +13,7 @@ def get_bookmarks(request):
     for bookmark in bookmarks:
         data.append(
             {
+                "id": bookmark.pk,
                 "title": bookmark.title,
                 "url": bookmark.url,
                 "time": bookmark.time,
