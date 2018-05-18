@@ -2,6 +2,7 @@ import json
 
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
 
 from .models import Bookmark
 
@@ -38,4 +39,20 @@ def batch_add(request):
         )
     Bookmark.objects.bulk_create(bookmarks)
 
+    return HttpResponse(status=201)
+
+
+@csrf_exempt
+def read_bookmark(request, id):
+    bookmark = get_object_or_404(Bookmark, pk=id)
+    bookmark.read = True
+    bookmark.save()
+    return HttpResponse(status=201)
+
+
+@csrf_exempt
+def delete_bookmark(request, id):
+    bookmark = get_object_or_404(Bookmark, pk=id)
+    bookmark.deleted = True
+    bookmark.save()
     return HttpResponse(status=201)
