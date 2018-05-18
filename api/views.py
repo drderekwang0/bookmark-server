@@ -8,7 +8,7 @@ from .models import Bookmark
 
 
 def get_bookmarks(request):
-    bookmarks = Bookmark.objects.all()
+    bookmarks = Bookmark.objects.filter(read=False, deleted=False).all()
 
     data = []
     for bookmark in bookmarks:
